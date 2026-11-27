@@ -40,7 +40,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
      */
     @Query("SELECT b FROM Booking b WHERE b.room.id = :roomId " +
            "AND b.status != 'CANCELLED' " +
-           "AND ((b.checkInDate <= :checkOut AND b.checkOutDate >= :checkIn))")
+            "AND ((b.checkInDate < :checkOut AND b.checkOutDate > :checkIn))")
     List<Booking> findConflictingBookings(
             @Param("roomId") Long roomId,
             @Param("checkIn") LocalDate checkIn,
